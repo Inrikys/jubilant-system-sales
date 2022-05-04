@@ -1,11 +1,13 @@
 package com.study.security.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table(name = "tb_customer")
 public class Customer {
 
     @Id
@@ -13,7 +15,15 @@ public class Customer {
     private Long id;
     private String name;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer")
+    private Set<Order> orders = new HashSet<>();
+
     public Customer() {
+    }
+
+    public Customer(String name) {
+        this.name = name;
     }
 
     public Long getId() {
@@ -30,5 +40,22 @@ public class Customer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", orders=" + orders +
+                '}';
     }
 }

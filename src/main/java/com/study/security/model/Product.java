@@ -1,12 +1,10 @@
 package com.study.security.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "tb_product")
 public class Product {
 
     @Id
@@ -40,5 +38,14 @@ public class Product {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                '}';
     }
 }
