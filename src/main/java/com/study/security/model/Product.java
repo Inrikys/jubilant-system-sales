@@ -1,8 +1,15 @@
 package com.study.security.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Builder
 @Entity
 @Table(name = "tb_product")
 public class Product {
@@ -13,39 +20,4 @@ public class Product {
     private String description;
     private BigDecimal price;
 
-    public Product() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                '}';
-    }
 }

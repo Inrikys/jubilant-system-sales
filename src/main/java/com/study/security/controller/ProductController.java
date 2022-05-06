@@ -49,16 +49,6 @@ public class ProductController {
         return productRepository.save(product);
     }
 
-    @DeleteMapping("{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
-        productRepository.findById(id)
-                .map(product -> {
-                    productRepository.delete(product);
-                    return product;
-                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found."));
-    }
-
     @PutMapping("{id}")
     public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product product) {
         return productRepository.findById(id)
@@ -68,5 +58,15 @@ public class ProductController {
                     return ResponseEntity.ok().body(product);
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found."));
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        productRepository.findById(id)
+                .map(product -> {
+                    productRepository.delete(product);
+                    return product;
+                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found."));
     }
 }
