@@ -1,8 +1,12 @@
 package com.study.security.service;
 
-import com.study.security.dto.OrderDto;
+import com.study.security.request.OrderRequest;
 import com.study.security.model.Order;
 
+import java.util.Optional;
+
 public interface OrderService {
-    Order save(OrderDto orderDto);
+    Order save(OrderRequest orderRequest);
+
+    Optional<Order> getOrderInfo(Long id);
 }

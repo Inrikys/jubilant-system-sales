@@ -1,7 +1,5 @@
 package com.study.security.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.study.security.dto.OrderDto;
 import lombok.*;
 
 import javax.persistence.*;

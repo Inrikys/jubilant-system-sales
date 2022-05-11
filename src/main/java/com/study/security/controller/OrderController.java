@@ -1,13 +1,12 @@
 package com.study.security.controller;
 
-import com.study.security.dto.OrderDto;
+import com.study.security.exception.BusinessException;
+import com.study.security.request.OrderRequest;
 import com.study.security.model.Order;
+import com.study.security.response.OrderResponse;
 import com.study.security.service.OrderService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/orders")
@@ -20,9 +19,15 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Order> save (@RequestBody OrderDto orderDto){
-        Order order = orderService.save(orderDto);
+    public ResponseEntity<Order> save(@RequestBody OrderRequest orderRequest) {
+        Order order = orderService.save(orderRequest);
         return ResponseEntity.ok().body(order);
     }
 
+    @GetMapping("/{id}")
+    public OrderResponse findById(@PathVariable Long id) {
+        return orderService.getOrderInfo(id)
+                .map(o -> new OrderResponse(o))
+                .orElseThrow(() -> new BusinessException("Order not found: " + id));
+    }
 }

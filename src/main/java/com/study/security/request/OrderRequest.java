@@ -1,4 +1,4 @@
-package com.study.security.dto;
+package com.study.security.request;
 
 import lombok.*;
 
@@ -10,10 +10,10 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Builder
-public class OrderDto {
+public class OrderRequest {
 
     private Long customerId;
     private BigDecimal total;
-    private List<OrderItemDto> items;
+    private List<OrderItemRequest> items;
 
 }

@@ -1,7 +1,7 @@
 package com.study.security.service.impl;
 
-import com.study.security.dto.OrderDto;
-import com.study.security.dto.OrderItemDto;
+import com.study.security.request.OrderRequest;
+import com.study.security.request.OrderItemRequest;
 import com.study.security.exception.BusinessException;
 import com.study.security.model.Customer;
 import com.study.security.model.Order;
@@ -13,12 +13,12 @@ import com.study.security.repository.OrderRepository;
 import com.study.security.repository.ProductRepository;
 import com.study.security.service.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,17 +33,17 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public Order save(OrderDto orderDto) {
-        Customer customer = customerRepository.findById(orderDto.getCustomerId())
+    public Order save(OrderRequest orderRequest) {
+        Customer customer = customerRepository.findById(orderRequest.getCustomerId())
                 .orElseThrow(() -> new BusinessException("Customer not found."));
 
         Order order = Order.builder()
-                .total(orderDto.getTotal())
+                .total(orderRequest.getTotal())
                 .orderDate(LocalDate.now())
                 .customer(customer)
                 .build();
 
-        List<OrderItem> orderItems = this.processOrderItem(order, orderDto.getItems());
+        List<OrderItem> orderItems = this.processOrderItem(order, orderRequest.getItems());
 
         orderRepository.save(order);
         orderItemRepository.saveAll(orderItems);
@@ -51,7 +51,11 @@ public class OrderServiceImpl implements OrderService {
         return order;
     }
 
-    private List<OrderItem> processOrderItem(Order order, List<OrderItemDto> items) {
+    public Optional<Order> getOrderInfo(Long id) {
+        return this.orderRepository.findByIdFetchOrderItems(id);
+    }
+
+    private List<OrderItem> processOrderItem(Order order, List<OrderItemRequest> items) {
         if (items.isEmpty()) {
             throw new BusinessException("To save an order is required at least one product");
         }

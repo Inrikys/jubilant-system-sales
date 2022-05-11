@@ -1,4 +1,4 @@
-package com.study.security.dto;
+package com.study.security.request;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Builder
-public class OrderItemDto {
+public class OrderItemRequest {
     private Long productId;
     private Integer quantity;
 }
