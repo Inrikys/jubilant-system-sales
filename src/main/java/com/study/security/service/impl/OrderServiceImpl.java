@@ -13,6 +13,7 @@ import com.study.security.repository.OrderRepository;
 import com.study.security.repository.ProductRepository;
 import com.study.security.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -42,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
                 .customer(customer)
                 .build();
 
-        List<OrderItem> orderItems = this.processOrderItem(order, orderDto.getOrderItemDtos());
+        List<OrderItem> orderItems = this.processOrderItem(order, orderDto.getItems());
 
         orderRepository.save(order);
         orderItemRepository.saveAll(orderItems);

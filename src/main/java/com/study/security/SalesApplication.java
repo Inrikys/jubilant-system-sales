@@ -31,18 +31,5 @@ public class SalesApplication implements CommandLineRunner {
 
         Customer customer = new Customer("Fulano");
         customerRepository.save(customer);
-
-        Order o = new Order();
-        o.setCustomer(customer);
-        o.setOrderDate(LocalDate.now());
-        o.setTotal(BigDecimal.valueOf(100));
-
-        orderRepository.save(o);
-
-//        customer = customerRepository.findCustomerFetchOrders(customer.getId());
-//        System.out.println(customer);
-//        System.out.println(customer.getOrders());
-
-        orderRepository.findByCustomer(customer).forEach(System.out::println);
     }
 }

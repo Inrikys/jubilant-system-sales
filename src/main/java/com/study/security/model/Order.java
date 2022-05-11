@@ -1,5 +1,6 @@
 package com.study.security.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.study.security.dto.OrderDto;
 import lombok.*;
 
@@ -31,8 +32,5 @@ public class Order {
 
     private LocalDate orderDate;
     private BigDecimal total;
-
-    public Order(OrderDto orderDto) {
-    }
 
 }
