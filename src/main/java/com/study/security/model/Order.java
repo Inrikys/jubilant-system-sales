@@ -1,5 +1,6 @@
 package com.study.security.model;
 
+import com.study.security.enums.OrderStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,5 +31,8 @@ public class Order {
 
     private LocalDate orderDate;
     private BigDecimal total;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
 }

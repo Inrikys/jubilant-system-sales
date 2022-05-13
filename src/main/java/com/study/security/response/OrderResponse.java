@@ -26,6 +26,7 @@ public class OrderResponse {
     private List<OrderItemResponse> orderItems;
     private BigDecimal total;
     private String orderDate;
+    private String status;
 
     public OrderResponse(Order entity) {
         this.id = entity.getId();
@@ -33,6 +34,7 @@ public class OrderResponse {
         this.customerName = entity.getCustomer().getName();
         this.total = entity.getTotal();
         this.orderDate = entity.getOrderDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.status = entity.getStatus().name();
 
         if (CollectionUtils.isEmpty(entity.getOrderItems())) {
             this.orderItems = Collections.emptyList();

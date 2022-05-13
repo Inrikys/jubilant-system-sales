@@ -1,5 +1,7 @@
 package com.study.security.service.impl;
 
+import com.study.security.enums.OrderStatus;
+import com.study.security.exception.ResourceNotFoundException;
 import com.study.security.request.OrderRequest;
 import com.study.security.request.OrderItemRequest;
 import com.study.security.exception.BusinessException;
@@ -41,6 +43,7 @@ public class OrderServiceImpl implements OrderService {
                 .total(orderRequest.getTotal())
                 .orderDate(LocalDate.now())
                 .customer(customer)
+                .status(OrderStatus.SUCCESS)
                 .build();
 
         List<OrderItem> orderItems = this.processOrderItem(order, orderRequest.getItems());
@@ -53,6 +56,15 @@ public class OrderServiceImpl implements OrderService {
 
     public Optional<Order> getOrderInfo(Long id) {
         return this.orderRepository.findByIdFetchOrderItems(id);
+    }
+
+    @Transactional
+    public Order updateStatus(Long id, OrderStatus status) {
+        return orderRepository.findById(id)
+                .map(order -> {
+                    order.setStatus(status);
+                    return orderRepository.save(order);
+                }).orElseThrow(() -> new ResourceNotFoundException("Order not found."));
     }
 
     private List<OrderItem> processOrderItem(Order order, List<OrderItemRequest> items) {
