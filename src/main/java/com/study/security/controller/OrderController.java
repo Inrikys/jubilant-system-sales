@@ -2,14 +2,15 @@ package com.study.security.controller;
 
 import com.study.security.enums.OrderStatus;
 import com.study.security.exception.BusinessException;
-import com.study.security.request.OrderRequest;
 import com.study.security.model.Order;
+import com.study.security.request.OrderRequest;
 import com.study.security.request.UpdateOrderStatusRequest;
 import com.study.security.response.OrderResponse;
 import com.study.security.service.OrderService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/orders")
@@ -23,7 +24,7 @@ public class OrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Order save(@RequestBody OrderRequest orderRequest) {
+    public Order save(@Valid @RequestBody OrderRequest orderRequest) {
         return orderService.save(orderRequest);
     }
 

@@ -12,4 +12,8 @@ public class StandardError {
     public StandardError(String error) {
         this.errors = Arrays.asList(error);
     }
+
+    public StandardError(List<String> errors) {
+        this.errors = errors;
+    }
 }

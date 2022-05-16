@@ -27,9 +27,34 @@ public class SalesApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("Saving customers");
+//        System.out.println("Saving customers");
+//
+//        Customer customer = new Customer("Fulano");
+//        customer.setCpf("01624343082");
+//        customerRepository.save(customer);
 
-        Customer customer = new Customer("Fulano");
-        customerRepository.save(customer);
+
+//        System.out.println(this.jumps(5, 2));
+
     }
+//
+//    public int jumps(int alturaBandeira, int bigJump) {
+//
+//        int result = 0;
+//        int escalada = alturaBandeira;
+//
+//        while (escalada >= bigJump) {
+//            result++;
+//            escalada -= bigJump;
+//        }
+//
+//        while (escalada > 0) {
+//            result++;
+//            escalada--;
+//        }
+//
+//        return result;
+//
+//    }
+
 }
