@@ -14,13 +14,13 @@ import java.util.List;
 @Builder
 public class OrderRequest {
 
-    @NotNull(message = "Customer message is required.")
+    @NotNull(message = "{field.customer-id.required}")
     private Long customerId;
 
-    @NotNull(message = "Total is required.")
+    @NotNull(message = "{field.order-total.required}")
     private BigDecimal total;
 
-    @NotEmptyList(message = "Order items are required.")
+    @NotEmptyList(message = "{field.order-items.required}")
     private List<OrderItemRequest> items;
 
 }

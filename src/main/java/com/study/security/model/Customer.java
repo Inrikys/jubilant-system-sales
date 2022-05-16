@@ -22,11 +22,11 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Name is required.")
+    @NotEmpty(message = "{field.name.required}")
     private String name;
 
-    @NotEmpty(message = "CPF is required.")
-    @CPF(message = "CPF is not valid.")
+    @NotEmpty(message = "{field.cpf.required}")
+    @CPF(message = "{field.cpf.invalid}")
     private String cpf;
 
     @JsonIgnore
