@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
+// Intercept requests to check if token is valid
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
