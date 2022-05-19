@@ -1,4 +1,4 @@
-package com.study.security.config;
+package com.study.security.security;
 
 import com.study.security.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

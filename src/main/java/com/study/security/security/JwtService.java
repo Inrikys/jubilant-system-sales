@@ -1,4 +1,4 @@
-package com.study.security;
+package com.study.security.security;
 
 import com.study.security.model.UserSale;
 import io.jsonwebtoken.Claims;
