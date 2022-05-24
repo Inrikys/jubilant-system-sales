@@ -61,6 +61,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // set token user inside spring context
                 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
 
-
     }
 }

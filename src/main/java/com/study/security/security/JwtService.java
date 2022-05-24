@@ -42,7 +42,7 @@ public class JwtService {
             LocalDateTime localDateTimeExp = dateExpiration.toInstant()
                     .atZone(ZoneId.systemDefault()).toLocalDateTime();
 
-            return LocalDateTime.now().isAfter(localDateTimeExp);
+            return LocalDateTime.now().isBefore(localDateTimeExp);
         } catch (Exception e) {
             return false;
         }

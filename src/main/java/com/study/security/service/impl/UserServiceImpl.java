@@ -1,5 +1,6 @@
 package com.study.security.service.impl;
 
+import com.study.security.exception.InvalidPasswordException;
 import com.study.security.model.UserSale;
 import com.study.security.repository.UserSaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,18 @@ public class UserServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserSaleRepository userSaleRepository;
+
+    public UserDetails auth(UserSale userSale) {
+        UserDetails userDetails = loadUserByUsername(userSale.getLogin());
+        // Senha atual, senha esperada
+        boolean isValid = passwordEncoder.matches(userSale.getPassword(), userDetails.getPassword());
+
+        if (!isValid) {
+            throw new InvalidPasswordException("Senha inválida.");
+        }
+
+        return userDetails;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
