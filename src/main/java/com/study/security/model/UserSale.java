@@ -20,6 +20,7 @@ public class UserSale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     @NotEmpty(message = "{field.login.required}")
     private String login;
 

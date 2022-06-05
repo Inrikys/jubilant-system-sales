@@ -25,6 +25,7 @@ public class Customer {
     @NotEmpty(message = "{field.name.required}")
     private String name;
 
+    @Column(unique = true)
     @NotEmpty(message = "{field.cpf.required}")
     @CPF(message = "{field.cpf.invalid}")
     private String cpf;

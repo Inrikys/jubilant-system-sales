@@ -2,6 +2,7 @@ package com.study.security.controller;
 
 import com.study.security.model.Customer;
 import com.study.security.repository.CustomerRepository;
+import io.swagger.annotations.*;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/customers")
+@Api("Clientes")
 public class CustomerController {
 
     private final CustomerRepository customerRepository;
@@ -24,7 +26,12 @@ public class CustomerController {
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    public List<Customer> findAllByExample(Customer filter) {
+    @ApiOperation("Get customers details")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Content found."),
+            @ApiResponse(code = 404, message = "Customer not found.")
+    })
+    public List<Customer> findAllByExample(@ApiParam(name = "Customer info") Customer filter) {
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
@@ -38,7 +45,12 @@ public class CustomerController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Customer findCustomerById(@PathVariable Long id) {
+    @ApiOperation("Get customer details")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Content found."),
+            @ApiResponse(code = 404, message = "Customer not found.")
+    })
+    public Customer findCustomerById(@ApiParam(name = "Customer id", example = "2") @PathVariable Long id) {
         return this.customerRepository
                 .findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found."));
@@ -46,13 +58,23 @@ public class CustomerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Customer save(@Valid @RequestBody Customer customer) {
+    @ApiOperation("Save new customer")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Customer has been saved."),
+            @ApiResponse(code = 400, message = "Validation error.")
+    })
+    public Customer save(@ApiParam(name = "Customer info") @Valid @RequestBody Customer customer) {
         return customerRepository.save(customer);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    @ApiOperation("Save new customer")
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "Customer has been deleted."),
+            @ApiResponse(code = 404, message = "Customer not found.")
+    })
+    public void delete(@ApiParam(name = "Customer id", example = "2") @PathVariable Long id) {
         customerRepository.findById(id)
                 .map(customer -> {
                     customerRepository.delete(customer);
@@ -61,7 +83,12 @@ public class CustomerController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Customer> update(@PathVariable Long id, @Valid @RequestBody Customer customer) {
+    @ApiOperation("Save new customer")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Customer has been updated."),
+            @ApiResponse(code = 404, message = "Customer not found.")
+    })
+    public ResponseEntity<Customer> update(@ApiParam(name = "Customer info", example = "2") @PathVariable Long id, @Valid @RequestBody Customer customer) {
         return customerRepository.findById(id)
                 .map(c -> {
                     customer.setId(c.getId());
